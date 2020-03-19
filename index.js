@@ -18,17 +18,43 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+var connections = [];
 //
 // Notice that I initialize a new instance of socket.io by passing the http (the HTTP server) object. 
 // Then I listen on the connection event for incoming sockets, and I log it to the console.
 io.on('connection', function(socket){
+  socket.on('login message', function(nick) {
+    // Inicia um array com um objeto contendo as chaves de socket id associado ao nick name
+    connections.push({
+      id : socket.id,
+      nick: nick
+    });
+    console.log(connections);
+    console.log('Usuario: ' +  nick + ' se conectou');
+    io.emit('chat message', 'Olá ' +  nick + ' divirta-se no meu chat!');
+  });
+
+  socket.on('disconnect', function(){
+    console.log(connections);
+    console.log('Usuario: ' + socket.id + ' desconectou!');
+    //connections = connections.filter(item => item == socket.id);
+    console.log(connections);
+  });
+
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
 });
 
-/* io.on('connection', function(socket){
+function arrayRemove(arr, value) { 
+  return arr.filter(function(ele){ 
+    return ele != value; });
+}
+
+
+
+  /* io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
     console.log('user disconnected');

@@ -22,7 +22,7 @@
           nick = 'Sem Nome'
         }
       var socket = io();
-      socket.emit('chat message', nick + ' se conectou!');
+      socket.emit('login message', nick);
 
       $(function () {
         var socket = io();
