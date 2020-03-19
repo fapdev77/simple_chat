@@ -1,0 +1,15 @@
+{
+  "name": "simple-chat",
+  "version": "0.0.1",
+  "description": "Simple chat using NodeJS with sockets",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.3.0"
+  },
+  "scripts": {
+     "start": "node index.js"
+  }
+}
